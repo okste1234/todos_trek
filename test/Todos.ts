@@ -48,21 +48,19 @@ describe("ToDoTrek", function () {
 
     it("Should test that todo has completed; isDone has changed to true on toggle", async function () {
       const { toggleTodo, createTodo, getAllTodos, todos } = await loadFixture(deployTodosFixture);
-      const setValue = await createTodo("eat", "I will eat rice later today");
+      const setValue = await createTodo("eat", "I will eat rice later today"); 
       const toggle = await toggleTodo(todos.length);      
       const list = await getAllTodos();  
       const val = list[list.length - 1][2];
       expect(val).to.equal(true);
     });
-  });
-  
-   it("Should check the length of the todos is equal to num of todos set", async function () {
+
+    it("Should check the length of the todos is equal to num of todos set", async function () {
       const { getAllTodos, createTodo } = await loadFixture(deployTodosFixture);
       const setValue = await createTodo("eat", "I will eat rice later today")
       const setValue2 = await createTodo("fishing", "I will go fishing on Saturday")
-
-      const alltodo = await getAllTodos()
-        
+      const alltodo = await getAllTodos()     
       expect(alltodo).to.lengthOf(2);
     });
-  })
+  });
+})
