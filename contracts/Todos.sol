@@ -35,13 +35,16 @@ contract Todos {
         string memory _desc
     ) external returns (Todo memory) {
         require(_index < todos.length, "Index out of bounds");
-        return
-            todos[_index] = Todo({
-                title: _title,
-                description: _desc,
-                isDone: false,
-                id: _index
-            });
+        return (todos[_index] = Todo({
+            title: _title,
+            description: _desc,
+            isDone: false,
+            id: _index
+        }));
+    }
+
+    function getAllTodos() external view returns (Todo[] memory) {
+        return todos;
     }
 
     // The number from the array is not removed when using the delete function. The value of that index is removed and replaced with 0. Using pop is the a proper method

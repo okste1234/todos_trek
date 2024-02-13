@@ -10,21 +10,21 @@ describe("ToDoTrek", function () {
   // We define a fixture to reuse the same setup in every test.
   // We use loadFixture to run this setup once, snapshot that state,
   // and reset Hardhat Network to that snapshot in every test.
-  async function deployTodoFixture() {
-    // Contracts are deployed using the first signer/account by default
-    const [owner, otherAccount] = await ethers.getSigners();
+  async function deployTodosFixture() {
+    const Todos = await ethers.getContractFactory("Todos");
+    const todos = await Todos.deploy();
 
-    const Lock = await ethers.getContractFactory("Lock");
-    const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
-
-    return { lock, unlockTime, lockedAmount, owner, otherAccount };
+    return { todos };
   }
 
-  describe("Deployment", function () {
-    it("Should set the right unlockTime", async function () {
-      const { lock, unlockTime } = await loadFixture(deployOneYearLockFixture);
+  describe("Create an instance of todos Array", function () {
+    it("Should set the todo in array according to the Struct", async function () {
+      const { todos } = await loadFixture(deployTodosFixture);
 
-      expect(await lock.unlockTime()).to.equal(unlockTime);
+      const tx = await todos.createTodo("game", "i will play game by morning");
+      const todo({Todo.title, }) = await todos
+      
+      expect(todo).to.equal("game", "i will play game by morning");
     });
 
     it("Should set the right owner", async function () {
