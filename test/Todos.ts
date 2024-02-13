@@ -38,9 +38,9 @@ describe("ToDoTrek", function () {
     });
 
     it("Should revert with an error if todos[index] to delete > than todos.lenght", async function () {
-      const { deleteTodo, createTodo } = await loadFixture(deployTodosFixture);
+      const { deleteTodo, createTodo, todos } = await loadFixture(deployTodosFixture);
       const setValue = await createTodo("eat", "I will eat rice later today")
-      const index = 2
+      const index = 1;
       const deleteVal = deleteTodo(index);
         
       await expect(deleteVal).to.be.revertedWith("Index out of bounds");
