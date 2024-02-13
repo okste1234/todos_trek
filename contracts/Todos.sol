@@ -9,8 +9,6 @@ contract Todos {
     // One function should toggle the isDone status.
     // Users should be able to update title, description, isdone status and delete todo.
 
-    uint index;
-
     struct Todo {
         string title;
         string description;
@@ -21,7 +19,7 @@ contract Todos {
     Todo[] public todos;
 
     function createTodo(string memory _title, string memory _desc) external {
-        todos.push(Todo(_title, _desc, false, index++));
+        todos.push(Todo(_title, _desc, false, todos.length));
     }
 
     function toggleTodo(uint _index) external {
