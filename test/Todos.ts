@@ -37,13 +37,22 @@ describe("ToDoTrek", function () {
       // expect(newTodoName).to.equal("game");
     });
 
-    it("Should revert with an error if todos[index] to delete > than todos.lenght", async function () {
+    it("Should pass on revertedWith if todos[index] to delete >= than todos.lenght", async function () {
       const { deleteTodo, createTodo, todos } = await loadFixture(deployTodosFixture);
       const setValue = await createTodo("eat", "I will eat rice later today")
-      const index = 1;
+      const index = 2;
       const deleteVal = deleteTodo(index);
         
       await expect(deleteVal).to.be.revertedWith("Index out of bounds");
+    });
+
+    it("Should pass on revertedWith if todos[index] to toggle >= than todos.lenght", async function () {
+      const { toggleTodo, createTodo, todos } = await loadFixture(deployTodosFixture);
+      const setValue = await createTodo("eat", "I will eat rice later today")
+      const index = 1;
+      const toggleVal = toggleTodo(index);
+        
+      await expect(toggleVal).to.be.revertedWith("Index out of bounds");
     });
 
     //   it("Should set the right owner", async function () {
