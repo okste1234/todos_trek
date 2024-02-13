@@ -21,18 +21,29 @@ describe("ToDoTrek", function () {
   }
 
   describe("Create an instance of todos Array", function () {
-    it("Should create todo with name, and desc, and check if the name is properly set in our array struct", async function () {
+    it("Should create todo with name, and desc, and check if the name & description are properly set in our array struct", async function () {
       const { createTodo, todos, getAllTodos } = await loadFixture(deployTodosFixture);
 
-      const tx = await createTodo("game", "i will play game by morning");
+      const tx = await createTodo("game", "I will play game by morning");
       const list = await getAllTodos()
       for (let index = 0; index < list.length; index++) {
         const element = list[index];
         
         expect(element.title).to.equal("game");
+        expect(element.description).to.equal("I will play game by morning");
+
       }
       // const newTodoName = todos[todos.length -1].title;
       // expect(newTodoName).to.equal("game");
+    });
+
+    it("Should revert with an error if todos[index] to delete > than todos.lenght", async function () {
+      const { deleteTodo, createTodo } = await loadFixture(deployTodosFixture);
+      const setValue = await createTodo("eat", "I will eat rice later today")
+      const index = 2
+      const deleteVal = deleteTodo(index);
+        
+      await expect(deleteVal).to.be.revertedWith("Index out of bounds");
     });
 
     //   it("Should set the right owner", async function () {
