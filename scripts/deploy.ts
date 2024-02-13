@@ -2,7 +2,6 @@ import { ethers } from "hardhat";
 
 async function main() {
   const todos = await ethers.deployContract("Todos");
-
   await todos.waitForDeployment();
 
   console.log(
